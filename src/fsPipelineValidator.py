@@ -42,8 +42,11 @@ class PipelineValidator:
         # check rest of keys
         for key in preimport.keys():
             # check supported compression formats
-            with key.lower() as k:
-                if k == "compression":
+            with key.lower() as k:    
+                if k == "file_type" or k ==~ '.*comment':
+                    continue
+                
+                elif k == "compression":
                     with str(preimport[key]).lower() as cf:#
                         tiffFormats=("lzw", "uncompressed", "jpeg-2000 lossy", "jpeg-2000", "jpeg", "zlib")
                         zarrFormats=("null", "raw", "zlib", "blosc")
@@ -83,12 +86,6 @@ class PipelineValidator:
                     except: 
                         fail.append(f"tile_size_y:{preimport[key]} - is not a list") 
                 
-                elif k == "timepoint":
-                    try: 
-                        int(preimport[key])
-                    except: 
-                        fail.append(f"timepoint:{preimport[key]} - is not an integer") 
-                
                 elif k == "pyramid_resolutions":
                     try: 
                         int(preimport[key])
@@ -100,6 +97,13 @@ class PipelineValidator:
                         values=("SIMPLE","GAUSSIAN","AREA","LINEAR","CUBIC","LANCZOS")
                         if pdt not in values:
                             fail.append(f"pyramid_downsample_type:{preimport[key]} - is not a supported downsample technique")
+                
+                elif k == "rgb":
+                    try:
+                        if bool(preimport[key]) == False:
+                            warn.append("Are you sure you don't want to mark this as rgb?")
+                    except:
+                        warn.append("Defaulting to rgb mode")
         
                 elif k == "extra_params":
                     warn.append("extra parameters have no protections, bugs are almost guaranteed")
@@ -117,8 +121,11 @@ class PipelineValidator:
 
                 elif k == "bigtiff":
                     warn.append("bigtiff param is Bioformats exclusive and has no effect on Glencoe tools")
+                
+                elif k == "timepoint":
+                    warn.append("timepoint param is Bioformats exclusive and has no effect on Glencoe tools")
                     
-                else:
+                else: 
                     warn.append(f"Unrecognized param:{key}")
                 
         return fail, warn
@@ -156,7 +163,10 @@ class PipelineValidator:
         for key in preimport.keys():
             # check supported compression formats
             with key.lower() as k:
-                if k == "compression":
+                if k == "file_type" or k ==~ '.*comment':
+                    continue
+                
+                elif k == "compression":
                     with str(preimport[key]).lower() as cf:
                         tiffFormats=("lzw", "uncompressed", "jpeg-2000 lossy", "jpeg-2000", "jpeg", "zlib")
                         dicomFormats=("uncompressed", "jpeg", "jpeg-2000")
@@ -243,7 +253,8 @@ class PipelineValidator:
                 elif k == "extra_params":
                     warn.append("extra parameters have no protections, bugs are almost guaranteed")
                     try:
-                        list(preimport[key])    
+                        if len(list(preimport[key])) < 1:
+                            fail.append("Don't define an empty list >:(")
                     except:
                         warn.append("even if only one set of extra params are provided, put it in an array to be safe")
                         preimport[key] = [preimport[key]]
