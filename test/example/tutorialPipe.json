@@ -1,0 +1,50 @@
+{
+    "COMMENT":"COMMENT keys should not be used :p",
+    "preimport":{
+        "COMMENT":["Allows file format conversions using bioformats (or glencoe)",
+            "see respective converter docs for setting info"],
+        "file_type":"ome.tiff",
+        "converter":"GLENcoe",
+        "converter_COMMENT":"Must be on PATH",
+        "name_prepend":"static",
+        "name_append":"labels",
+        "num_processes":1,
+        "compression":"LZW",
+        "tile_size_x":512,
+        "tile_size_y":512,
+        "channel":null,
+        "z_index":null,
+        "series":[0,4],
+        "timepoint":null,
+        "noflat":false,
+        "bigtiff":null,
+        "bigtiff_COMMENT":"true=forcing bigtiff, false=forcing not bigtiff",
+        "padded_pattern":"",
+        "pyramid_resolutions":null,
+        "pyramid_scale":null,
+        "pyramid_downsample_type":"SIMPLE",
+        "extra_params":["--help", "--help", "-n 1"],
+        "extra_params_COMMENT":[
+            "strings will be used one at a time as commands are compiled. Even if only one command is run, use a list",
+            "in this case, the first glencoe command will display help, then the second will as well, '-n 1' will not be used at all"]
+    },
+    "import_args":"see import cli options",
+    "postimport_COMMENT":[
+        "postimport runs OMERO.scripts on image after import has completed",
+        "'scriptId' is the ID of an OMERO script on the desired server"],
+    "postimport":[
+        {
+            "script_id":0,
+            "imageVarName":"imageId",
+
+            "exampleVar":"PIPE_OUT",
+            "exampleVariable":"nextVarName"
+        },
+        {
+            "scriptId":1,
+            "imageVarName":"imageId",
+
+            "nextVarName":"PIPE_OUT"
+        }
+    ]
+}
