@@ -1,3 +1,9 @@
 FROM python:3.7
 
 RUN pip install omero-dropbox
+
+RUN useradd -s /bin/bash -m vscode \
+ && groupadd docker \
+ && usermod -aG docker vscode
+
+USER vscode
