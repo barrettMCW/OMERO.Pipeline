@@ -30,6 +30,7 @@
             "in this case, the first glencoe command will display help, then the second will as well, '-n 1' will not be used at all"
         ]
     },
+
     "import_args":"see import cli options",
     "postimport_COMMENT":[
         "postimport runs OMERO.scripts on image after import has completed",
@@ -37,8 +38,10 @@
     ],
     "postimport":[
         {
+            "COMMENT": "",
             "script_id":0,
             "imageVarName":"imageId",
+            "inputVar":"data",
 
             "exampleVar":"PIPE_OUT",
             "exampleVariable":"nextVarName"

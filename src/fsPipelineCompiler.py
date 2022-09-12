@@ -5,6 +5,7 @@ class PipelineCompiler:
     preimportFields = ("bigtiff","channel","compression","converter","extra_params","file_type","name_append",
                        "name_prepend","noflat","num_processes","padded_pattern","pyramid_downsample_type",
                        "pyramid_resolutions","pyramid_scale","series","tile_size_x","tile_size_y","timepoint","z_index")
+    
     def compileGlencoe(preimport, filename):
         """ Extracts Glencoe bioformats2raw and raw2ometiff commands from json obj """
         build = []
@@ -117,12 +118,7 @@ class PipelineCompiler:
             build.append(raw2ometiff)
 
         return build
-                
-                
-                
-        
-            
-            
+                    
     def compileBioformats(preimport, filename):
         """ Extracts Bioformats bfconvert commands from json obj"""
         build = []

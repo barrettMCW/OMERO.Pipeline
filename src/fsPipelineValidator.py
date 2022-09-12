@@ -275,8 +275,9 @@ class PipelineValidator:
         
         if json.preimport == None and json.postimport == None: 
             fail.append("No meaningful pipeline defined, just use dropbox or make sure your json is written correct") #TODO
-        
+        #####
         # preimport
+        #####
         if json.preimport:
             # if converter undefined, bioformats is default
             if json.preimport.converter == None:
@@ -293,10 +294,13 @@ class PipelineValidator:
                 fail.extend(result[0])
                 warn.extend(result[1])
         
+        #####
         # import args
-        # TODO
+        ##### TODO
         
+        #####
         # postimport
+        #####
         if type(json.postimport) == list:
             reqVars = []
             for script in json.postimport:
