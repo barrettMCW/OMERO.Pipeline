@@ -1,0 +1,7 @@
+# app requirements
+omero-dropbox
+
+# dev tools
+pylint
+pycodestyle
+black
