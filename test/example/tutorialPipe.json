@@ -38,19 +38,41 @@
     ],
     "postimport":[
         {
-            "COMMENT": "",
-            "script_id":0,
-            "imageVarName":"imageId",
-            "inputVar":"data",
-
-            "exampleVar":"PIPE_OUT",
-            "exampleVariable":"nextVarName"
+            "COMMENT": [
+            "There are special keywords",
+                "'SCRIPT_ID':val is the id of the script you want to run. You may pass the path of a local file, which will be uploaded as a userscript",
+                "'IMAGE_VAR':val, 'DATASET_VAR': or 'PROJECT_VAR': expects an omeroscript image, dataset, or project variable",
+                "'NAME':val defines the name of that script",
+                "key:'NAME:VARNAME' will use an output of a previous script as input for this one",
+            "keys that do not match a keyword (ie 'inputVar') are assumed to be the name of an omero scripts param",
+                "Pipeline will attempt to pass the keyval pair directly to the script"
+            ],
+            "NAME":"ONE",
+            "SCRIPT_ID":0,
+            "IMAGE_VAR":"imageId",
+            "inputVar":["fake","data"]
         },
+        [
+            {"COMMENT":"arrays under postimport are seen as (potentially) parallel"},
+            {
+                "NAME":"TWO-A",
+                "SCRIPT_ID":1,
+                "IMAGE_VAR":"imageId",
+                "inputVar":"ONE:outputVar"
+            },
+            {
+                "NAME":"TWO-B",
+                "SCRIPT_ID":2,
+                "IMAGE_VAR":"image-id",
+                "inputVar":"ONE:outputVar",
+                "inVar":"ONE:outVar"
+            }
+        ],
         {
-            "scriptId":1,
-            "imageVarName":"imageId",
-
-            "nextVarName":"PIPE_OUT"
+            "NAME":"THREE",
+            "SCRIPT_ID":3,
+            "IMAGE_VAR":"image-id",
+            "inputVar":["TWO-A:outputVar","TWO-B:outputVar"]
         }
     ]
 }
