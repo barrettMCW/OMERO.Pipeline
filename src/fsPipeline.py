@@ -1,8 +1,8 @@
 import sys
 import logging
+import fsDropBox
 log = logging.getLogger("fsclient.DropBox")
 
-import fsDropBox
 
 class fsPipeline(fsDropBox):
     """ Pipeline client manager """ 
