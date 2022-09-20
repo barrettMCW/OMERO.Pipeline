@@ -1,6 +1,6 @@
 # app requirements
 omero-dropbox
-
+jsonschema
 # dev tools
 pylint
 pycodestyle

@@ -1,21 +1,23 @@
 import sys
 import logging
 import fsDropBox
+
 log = logging.getLogger("fsclient.DropBox")
 
 
 class fsPipeline(fsDropBox):
-    """ Pipeline client manager """ 
+    """Pipeline client manager"""
+
     def getMonitorParameters(self, props):
-       """ Get monitor parameters """ 
-       super().getMonitorParameter(props)
-    
-        
-if __name__ == '__main__':
+        """Get monitor parameters"""
+        super().getMonitorParameters(props)
+
+
+if __name__ == "__main__":
     try:
-        log.info('Trying to start OMERO.fs Pipeline client')
+        log.info("Trying to start OMERO.fs Pipeline client")
         app = fsPipeline()
-    except:
+    except Exception:
         log.exception("Failed to start the client:\n")
         log.info("Exiting with exit code: -1")
         sys.exit(-1)

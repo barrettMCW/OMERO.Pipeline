@@ -17,7 +17,11 @@
                 "python.languageServer": "Pylance",
                 "python.linting.enabled": true,
                 "python.linting.pylintEnabled": true,
-                "python.linting.pycodestyleEnabled": true
+                "python.linting.pycodestyleEnabled": true,
+                "python.linting.pylintArgs": [
+                    "--variable-naming-style 'camelCase'",
+                    "--method-naming-style 'camelCase'"
+                ]
             }
         }
     },

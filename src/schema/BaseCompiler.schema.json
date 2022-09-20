@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "BaseCompiler",
+    "description": "Abstract Compiler Schema",
+    "$comment": "Careful with defaults, with ~all args it's best to leave them empty so args are not used",
+    "properties": {
+        "input": {
+            "type": "string",
+            "description": "the input file"
+        },
+        "output": {
+            "type": "string",
+            "description": "output of the preimport step"
+        },
+        "filetype": {
+            "type": "string",
+            "description": "file extension desired"
+        },
+        "compression": {
+            "type": "string",
+            "description": "desired compression format"
+        },
+        "name_append": {
+            "type": "string",
+            "description": "text to be added at the end of the name but before the file extension"
+        },
+        "name_prepend": {
+            "type": "string",
+            "description": "text to be added to the front of the name but after the parent dir"
+        }
+    },
+    "required": [
+        "input",
+        "filetype",
+        "compression"
+    ]
+}

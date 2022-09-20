@@ -1,78 +1,94 @@
 {
-    "COMMENT":"COMMENT keys will be ignored, but it's debatable on if you should use them",
-    "preimport":{
-        "COMMENT":["Allows file format conversions using bioformats (or glencoe)",
-            "see respective converter docs for setting info"],
-        "file_type":"ome.tiff",
-        "converter":"GLENcoe",
-        "converter_COMMENT":"Must be on PATH",
-        "name_prepend":"static",
-        "name_append":"labels",
-        "num_processes":1,
-        "compression":"LZW",
-        "tile_size_x":512,
-        "tile_size_y":512,
-        "channel":null,
-        "rgb":true,
-        "z_index":null,
-        "series":[0,4],
-        "timepoint":null,
-        "noflat":false,
-        "bigtiff":null,
-        "bigtiff_COMMENT":"true=forcing bigtiff, false=forcing not bigtiff",
-        "padded_pattern":"",
-        "pyramid_resolutions":null,
-        "pyramid_scale":null,
-        "pyramid_downsample_type":"SIMPLE",
-        "extra_params":["--help", "--help", "-n 1"],
-        "extra_params_COMMENT":[
+    "COMMENT": "COMMENT keys will be ignored, but it's debatable on if you should use them",
+    "preimport": {
+        "COMMENT": [
+            "Allows file format conversions using bioformats (or glencoe)",
+            "see respective converter docs for setting info"
+        ],
+        "file_type": "ome.tiff",
+        "converter": "GLENcoe",
+        "converter_COMMENT": "Must be on PATH",
+        "name_prepend": "static",
+        "name_append": "labels",
+        "num_processes": 1,
+        "compression": "LZW",
+        "tile_size_x": 512,
+        "tile_size_y": 512,
+        "channel": null,
+        "rgb": true,
+        "z_index": null,
+        "series": [
+            0,
+            4
+        ],
+        "timepoint": null,
+        "noflat": false,
+        "bigtiff": null,
+        "bigtiff_COMMENT": "true=forcing bigtiff, false=forcing no bigtiff",
+        "padded_pattern": "",
+        "pyramid_resolutions": null,
+        "pyramid_scale": null,
+        "pyramid_downsample_type": "SIMPLE",
+        "extra_params": [
+            "--help",
+            "--help",
+            "-n 1"
+        ],
+        "extra_params_COMMENT": [
             "strings will be used one at a time as commands are compiled. Even if only one command is run, use a list",
             "in this case, the first glencoe command will display help, then the second will as well, '-n 1' will not be used at all"
         ]
     },
-
-    "import_args":"see import cli options",
-    "postimport_COMMENT":[
+    "import_args": "see import cli options",
+    "postimport_COMMENT": [
         "postimport runs OMERO.scripts on image after import has completed",
         "'scriptId' is the ID of an OMERO script on the desired server"
     ],
-    "postimport":[
+    "postimport": [
         {
             "COMMENT": [
-            "There are special keywords",
+                "There are special keywords",
                 "'SCRIPT_ID':val is the id of the script you want to run. You may pass the path of a local file, which will be uploaded as a userscript",
                 "'IMAGE_VAR':val, 'DATASET_VAR': or 'PROJECT_VAR': expects an omeroscript image, dataset, or project variable",
                 "'NAME':val defines the name of that script",
                 "key:'NAME:VARNAME' will use an output of a previous script as input for this one",
-            "keys that do not match a keyword (ie 'inputVar') are assumed to be the name of an omero scripts param",
+                "keys that do not match a keyword (ie 'inputVar') are assumed to be the name of an omero scripts param",
                 "Pipeline will attempt to pass the keyval pair directly to the script"
             ],
-            "NAME":"ONE",
-            "SCRIPT_ID":0,
-            "IMAGE_VAR":"imageId",
-            "inputVar":["fake","data"]
+            "NAME": "ONE",
+            "SCRIPT_ID": 0,
+            "IMAGE_VAR": "imageId",
+            "inputVar": [
+                "fake",
+                "data"
+            ]
         },
         [
-            {"COMMENT":"arrays under postimport are seen as (potentially) parallel"},
             {
-                "NAME":"TWO-A",
-                "SCRIPT_ID":1,
-                "IMAGE_VAR":"imageId",
-                "inputVar":"ONE:outputVar"
+                "COMMENT": "arrays under postimport are seen as (potentially) parallel"
             },
             {
-                "NAME":"TWO-B",
-                "SCRIPT_ID":2,
-                "IMAGE_VAR":"image-id",
-                "inputVar":"ONE:outputVar",
-                "inVar":"ONE:outVar"
+                "NAME": "TWO-A",
+                "SCRIPT_ID": 1,
+                "IMAGE_VAR": "imageId",
+                "inputVar": "ONE:outputVar"
+            },
+            {
+                "NAME": "TWO-B",
+                "SCRIPT_ID": 2,
+                "IMAGE_VAR": "image-id",
+                "inputVar": "ONE:outputVar",
+                "inVar": "ONE:outVar"
             }
         ],
         {
-            "NAME":"THREE",
-            "SCRIPT_ID":3,
-            "IMAGE_VAR":"image-id",
-            "inputVar":["TWO-A:outputVar","TWO-B:outputVar"]
+            "NAME": "THREE",
+            "SCRIPT_ID": 3,
+            "IMAGE_VAR": "image-id",
+            "inputVar": [
+                "TWO-A:outputVar",
+                "TWO-B:outputVar"
+            ]
         }
     ]
 }

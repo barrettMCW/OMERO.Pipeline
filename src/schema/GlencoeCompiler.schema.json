@@ -1,0 +1,120 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "GlencoeCompiler",
+    "allOf": [
+        {
+            "$ref": "#/schema/BaseCompiler.schema.json"
+        }
+    ],
+    "properties": {
+        "filetype": {
+            "type": "string",
+            "description": "Desired file type extension",
+            "enum": [
+                "zarr",
+                "ome.tiff"
+            ],
+            "default": "ome.tiff"
+        },
+        "bigtiff": {
+            "warn": "property does not effect this converter"
+        },
+        "channel": {
+            "warn": "property does not effect this converter"
+        },
+        "extra_params": {
+            "warn": "using extra_params can be dangerous, do through testing before using this in production",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Allows direct parameter passing to converter Array[String...]"
+        },
+        "noflat": {
+            "warn": "property does not effect this converter"
+        },
+        "pyramid_downsample_type": {
+            "type": "string",
+            "description": "Algorith to calculate lower resolutions",
+            "enum": [
+                "simple",
+                "gaussian",
+                "area",
+                "linear",
+                "cubic",
+                "lanczos"
+            ]
+        },
+        "pyramid_resolutions": {
+            "type": "integer",
+            "description": "Number of resolutions to calculate",
+            "minimum": 1
+        },
+        "pyramid_scale": {
+            "warn": "property does not effect this converter"
+        },
+        "rgb": {
+            "type": "boolean",
+            "description": "Try to format as rgb image?",
+            "default": true
+        },
+        "series": {
+            "type": "array",
+            "minItems": 1,
+            "description": "List of series to get",
+            "items": {
+                "type": "integer",
+                "minimum": 0
+            }
+        },
+        "tile_size_x": {
+            "type": "integer",
+            "description": "Width of generated tiles",
+            "minimum": 1
+        },
+        "tile_size_y": {
+            "type": "integer",
+            "description": "Height of generated tiles",
+            "minimum": 1
+        },
+        "timepoint": {
+            "warn": "property does not effect this converter"
+        },
+        "z_index": {
+            "warn": "property does not effect this converter"
+        }
+    },
+    "if": {
+        "properties": {
+            "filetype": {
+                "const": "zarr"
+            }
+        }
+    },
+    "then": {
+        "properties": {
+            "compression": {
+                "enum": [
+                    "null",
+                    "raw",
+                    "zlib",
+                    "blosc"
+                ]
+            }
+        }
+    },
+    "else": {
+        "properties": {
+            "compression": {
+                "enum": [
+                    "lzw",
+                    "uncompressed",
+                    "jpeg-2000 lossy",
+                    "jpeg-2000",
+                    "jpeg",
+                    "zlib"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+bigtiff
+channel
+extra_params
+noflat
+pyramid_downsample_type
+pyramid_resolutions
+pyramid_scale
+rgb
+series
+tile_size_x
+tile_size_y
+timepoint
+z_index
